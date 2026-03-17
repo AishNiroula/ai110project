@@ -25,9 +25,15 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+Glitchy Guesser is an app that is developed on the basis of Streamlit, a number guessing game, in which the player attempts to estimate an enigmatic number given a restricted count of tries. The gamer picks the level of difficulty, they are given hints after each attempt telling them whether to go high or down and score points based on the speed at which they guess correctly. The bugs in the game were designed to be there as a debugging exercise to train on the process of finding and fixing AI-generated code. 
+
+The counter of attempts began at 1 rather than 0, and as such the game had one less attempt than the player actually had. Each even guess that the secret number was changed to a string, which made Python compare the hints alphabetically, inverted the hints, making Go Higher and Go Lower the reversed version. The score was paying +5 points on even attempts where the attempt had a wrong guess of Too High, rather than subtracting point always. Hard difficulty was based on a range of 1-50, which is in fact smaller and less difficult than the range of 1-100 of Normal. The New Game button would always randomly choose a number somewhere between 1 and 100 no matter what difficulty mode was chosen and this was a complete break to Easy and Hard modes.
+
+Changed st.session_state.attempts initial value from 1 to 0.
+Removed the string conversion block and always passed the secret as an integer to check_guess.
+Simplified update_score to always deduct 5 points for any wrong guess, removing the +5 branch entirely.
+Changed the Hard difficulty range to 1-200 so it is genuinely harder than Normal.
+Updated the New Game button to use the difficulty-based low and high variables instead of hardcoded 1-100.
 
 ## 📸 Demo
 
